@@ -1,88 +1,18 @@
+<!-- index.html -->
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>简单路由示例</title>
-    <base href="/">
-    <style>
-        .hidden {
-            display: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的 GitHub 页面</title>
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#" data-page="home">首页</a></li>
-                <li><a href="#" data-page="about">关于我们</a></li>
-                <li><a href="#" data-page="contact">联系我们</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <!-- 页面内容将在这里动态加载 -->
-        <section id="home" class="page-content">
-            <h1>欢迎来到首页</h1>
-            <p>这是首页的内容。</p>
-        </section>
-        <section id="Block_Cipher" class="page-content hidden">
-            <h1>关于我们</h1>
-            <p>这是关于我们的内容。</p>
-        </section>
-        <section id="contact" class="page-content hidden">
-            <h1>联系我们</h1>
-            <p>这是联系我们的内容。</p>
-        </section>
-    </main>
-
-    <script>
-        // 获取所有页面内容节点
-        const pages = document.querySelectorAll('.page-content');
-        // 获取所有的导航链接
-        const links = document.querySelectorAll('nav a');
-
-        // 显示指定ID的页面，隐藏其他页面
-        function showPage(pageId) {
-            pages.forEach(page => {
-                page.classList.toggle('hidden', page.id !== pageId);
-            });
-        }
-
-        // 处理点击事件
-        function handleLinkClick(event) {
-            event.preventDefault(); // 阻止默认行为，即页面跳转
-            const pageId = event.target.getAttribute('data-page'); // 获取要显示的页面ID
-            showPage(pageId); // 显示对应的页面
-
-            // 更新浏览器地址栏中的URL，但不触发页面刷新
-            if (history.pushState) {
-                history.pushState(null, null, `/${pageId}`);
-            }
-        }
-
-        // 为每个链接添加点击事件监听器
-        links.forEach(link => {
-            link.addEventListener('click', handleLinkClick);
-        });
-
-        // 初始化页面，根据当前URL显示正确的页面
-        function initPage() {
-            // 获取当前URL路径部分
-            const path = window.location.pathname.replace('/', '');
-            // 如果路径对应一个页面，则显示之；否则显示首页
-            const currentPage = pages.find(page => page.id === path) || document.getElementById('home');
-            showPage(currentPage.id);
-        }
-
-        // 监听popstate事件，以便在用户使用浏览器的前进/后退按钮时更新页面
-        window.addEventListener('popstate', () => {
-            initPage();
-        });
-
-        // 初始化页面显示
-        initPage();
-    </script>
+  <h1>欢迎来到我的页面!</h1>
+  <nav>
+    <ul>
+      <li><a href="Block_Cipher.html">页面 1</a></li>
+      <li><a href="page2.html">页面 2</a></li>
+    </ul>
+  </nav>
 </body>
 </html>
