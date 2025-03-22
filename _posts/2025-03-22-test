@@ -1,0 +1,49 @@
+---
+layout: post
+title: "CTF密码学题解：RSA & 维吉尼亚密码"
+date: 2025-03-21
+categories: [CTF, Cryptography]
+tags: [RSA, Vigenere, Crypto]
+author: yuhuofeng
+---
+
+## RSA-baby
+
+### 题目描述
+
+```python
+from Crypto.Util.number import bytes_to_long, getPrime
+from hashlib import md5
+from random import randint
+from gmpy2 import invert, gcd
+
+def MD5(m): return md5(str(m).encode()).hexdigest()
+
+def KeyGen():
+    Factor_BitLength = 30
+    q = getPrime(Factor_BitLength)
+    p = getPrime(Factor_BitLength)
+    N = p * q
+    phi = (p-1) * (q-1)
+
+    while True:
+        e = randint(1, phi)
+        if gcd(e, phi) == 1:
+            d = int(invert(e, phi))
+            break
+
+    Pub_Key = (N, e)
+    Prv_Key = (N, d)
+    return Pub_Key, Prv_Key
+
+Pub, Prv = KeyGen()
+N, e = Pub
+_, d = Prv
+m = randint(1, N)
+c = pow(m, e, N)
+
+print(f'Pub_Key = {Pub}')
+print(f'Prv_Key = {Prv}')
+print(f'Encrypt_msg = {c}')
+
+flag = '0xGame{' + MD5(m) + '}'
