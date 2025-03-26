@@ -5,7 +5,6 @@ date: 2025-03-26
 categories: [ctf, Crypto]
 tags: [ctf,Crypto]
 author: l0fxxs
-math: true
 ---
 
 ## xyctf 2024 crypto wp 
@@ -329,7 +328,7 @@ $seed_{i+1}=a\cdot seed_i+b\ mod\ p$已知三十个seed的高八位
 $seed_{i+1}^{'}=a\cdot seed_i+b^{'}_i\ mod\ p$
 
 记第一个方程为$seed_{1}^{'}=a\cdot seed_0+b^{'}_0\ mod\ p$
-逐个带入有$seed_{i}^{'}=a_i\cdot seed_0+b_i^{''}\ mod\ p$,  其中$a_i=a^{i+1}$,$b_i^{''}=\sum_{i=1}^{n} a_{i-1}i\cdot b^{'}_i$
+逐个带入有$seed_{i}^{'}=a_i \cdot seed_0+b_i^{''}\ mod\ p$,  其中$a_i=a^{i+1}$,$b_i^{''}=\sum_{i=1}^{n} a_{i-1}i\cdot b^{'}_i$
 所以有格
 \[M=
 \left(
@@ -345,6 +344,7 @@ $seed_{i+1}^{'}=a\cdot seed_i+b^{'}_i\ mod\ p$
 有
 $(k_0,k_1,...,k_{29},1,seed_{0}^{'})\cdot M=(seed^{'}_{1},...,seed^{'}_{29},2^{119},seed^{'}_{0})$
 用LLL算法即可得到
+
 exp
 ```python
 from Crypto.Util.number import *
