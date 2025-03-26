@@ -7,6 +7,8 @@ tags: [ctf,Crypto]
 author: l0fxxs
 ---
 
+{% include header.html %}
+
 ## xyctf 2024 crypto wp 
 
 ### complex_dlp
