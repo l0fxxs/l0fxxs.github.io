@@ -5,6 +5,7 @@ date: 2025-03-26
 categories: [ctf, Crypto]
 tags: [ctf,Crypto]
 author: l0fxxs
+math: true
 ---
 
 
