@@ -329,11 +329,17 @@ $seed_{i+1}=a\cdot seed_i+b\ mod\ p$已知三十个seed的高八位
 
 $seed_{i+1}^{'}+out_{i+1}=a\cdot seed_i+a\cdot out_{i}+b\ mod\ p$
 
-令$b^{'}_i=b+a\cdot out_i-out_{i+1}$则
+令 
+$b^{'}_i=b+a\cdot out_i-out_{i+1}$ 
+则
 $seed_{i+1}^{'}=a\cdot seed_i+b^{'}_i\ mod\ p$
 
-记第一个方程为$seed_{1}^{'}=a\cdot seed_0+b^{'}_0\ mod\ p$
-逐个带入有$seed_{i}^{'}=a_i \cdot seed_0+b_i^{''}\ mod\ p$,  其中$a_i=a^{i+1}$,$b_i^{''}=\sum_{i=1}^{n} a_{i-1}i\cdot b^{'}_i$
+记第一个方程为
+$seed_{1}^{'}=a\cdot seed_0+b^{'}_0\ mod\ p$
+逐个带入有
+$seed_{i}^{'}=a_i \cdot seed_0+b_i^{''}\ mod\ p$
+其中
+$a_i=a^{i+1}$,$b_i^{''}=\sum_{i=1}^{n} a_{i-1}i\cdot b^{'}_i$
 所以有格
 \[M=
 \left(
