@@ -7,7 +7,6 @@ tags: [ctf,Crypto]
 author: l0fxxs
 ---
 
-{% include header.html %}
 
 ## xyctf 2024 crypto wp 
 
@@ -324,8 +323,10 @@ c=600364225731615202236448616716312557701886766261059592697361693774128122789138
 大概是一个lcg生成随机数，a,b,p已知，seed的一些高位泄漏，求seed，最后在运算一些seed与c异或即可
 $seed_{i+1}=a\cdot seed_i+b\ mod\ p$已知三十个seed的高八位
 
-写成$seed_{i+1}^{'}+out_{i+1}=a\cdot seed_i+a\cdot out_{i}+b\ mod\ p$
-
+写成
+{% raw %}
+$seed_{i+1}^{'}+out_{i+1}=a\cdot seed_i+a\cdot out_{i}+b\ mod\ p$
+{% endraw %}
 令$b^{'}_i=b+a\cdot out_i-out_{i+1}$则
 $seed_{i+1}^{'}=a\cdot seed_i+b^{'}_i\ mod\ p$
 
