@@ -341,9 +341,9 @@ $$seed_{i+1}^{'}=a\cdot seed_i+b^{'}_i\ mod\ p$$
 
 
 记第一个方程为
-<!-- {% raw %} -->
+{% raw %}
 $$seed_{1}^{'}=a\cdot seed_0+b^{'}_0\ mod\ p$$
-<!-- {% endraw %} -->
+{% endraw %}
 
 逐个带入有
 {% raw %}
