@@ -321,29 +321,49 @@ out=[34, 95, 100, 114, 16, 23, 17, 118, 115, 29, 73, 47, 12, 133, 78, 30, 30, 73
 c=6003642257316152022364486167163125577018867662610595926973616937741281227891381713617380
 '''
 ```
-{% raw %}
+
 大概是一个lcg生成随机数，a,b,p已知，seed的一些高位泄漏，求seed，最后在运算一些seed与c异或即可
-$seed_{i+1}=a\cdot seed_i+b\ mod\ p$已知三十个seed的高八位
+$$seed_{i+1}=a\cdot seed_i+b\ mod\ p$$已知三十个seed的高八位
 
 写成
-
-$seed_{i+1}^{'}+out_{i+1}=a\cdot seed_i+a\cdot out_{i}+b\ mod\ p$
+{% raw %}
+$$seed_{i+1}^{'}+out_{i+1}=a\cdot seed_i+a\cdot out_{i}+b\ mod\ p$$
 
 令 
-$b^{'}_i=b+a\cdot out_i-out_{i+1}$ 
+{% raw %}
+$$b^{'}_i=b+a\cdot out_i-out_{i+1}$$
+{% endraw %}
+
 则
-$seed_{i+1}^{'}=a\cdot seed_i+b^{'}_i\ mod\ p$
+{% raw %}
+$$seed_{i+1}^{'}=a\cdot seed_i+b^{'}_i\ mod\ p$$
+{% endraw %}
+
 
 记第一个方程为
-$seed_{1}^{'}=a\cdot seed_0+b^{'}_0\ mod\ p$
+{% raw %}
+$$seed_{1}^{'}=a\cdot seed_0+b^{'}_0\ mod\ p$$
+{% endraw %}
+
 逐个带入有
-$seed_{i}^{'}=a_i \cdot seed_0+b_i^{''}\ mod\ p$
+{% raw %}
+$$seed_{i}^{'}=a_i \cdot seed_0+b_i^{''}\ mod\ p$$
+{% endraw %}
+
 其中
-$a_i=a^{i+1}$,$b_i^{''}=\sum_{i=1}^{n} a_{i-1}i\cdot b^{'}_i$
+{% raw %}
+$$
+a_i = a^{i+1}, \quad b_i^{''} = \sum_{j=1}^{n} a_{j-1} \cdot b^{'}_j
+$$
+{% endraw %}
+
 所以有格
-\[M=
+
+{% raw %}
+$$
+M=
 \left(
-\begin{array}{ccc}
+\begin{array}{ccccc}
   p & 0 & 0 & 0 & 0\\
   \vdots & p & 0 & 0 & 0\\
   0 &  & \ddots & \vdots & \vdots\\
@@ -351,11 +371,14 @@ $a_i=a^{i+1}$,$b_i^{''}=\sum_{i=1}^{n} a_{i-1}i\cdot b^{'}_i$
   a_0 & a_{1} & \cdots & 0& 1\\
 \end{array}
 \right)
-\]
-有
-$(k_0,k_1,...,k_{29},1,seed_{0}^{'})\cdot M=(seed^{'}_{1},...,seed^{'}_{29},2^{119},seed^{'}_{0})$
-用LLL算法即可得到
+$$
 {% endraw %}
+有
+{% raw %}
+$$(k_0,k_1,...,k_{29},1,seed_{0}^{'})\cdot M=(seed^{'}_{1},...,seed^{'}_{29},2^{119},seed^{'}_{0})$$
+{% endraw %}
+用LLL算法即可得到
+
 exp
 ```python
 from Crypto.Util.number import *
