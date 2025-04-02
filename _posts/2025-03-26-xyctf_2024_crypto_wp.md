@@ -366,7 +366,7 @@ M=
 \begin{array}{ccccc}
   p & 0 & \cdots & 0 & 0\\
   \vdots & p & \cdots & 0 & 0\\
-  0 &  & \ddots & \vdots & \vdots\\
+  0 & \vdots & \ddots & \vdots & \vdots\\
   b_{0}^{''} & b_{1}^{''} & \cdots & 2^{119} &\\
   a_0 & a_{1} & \cdots & 0& 1\\
 \end{array}
@@ -588,8 +588,10 @@ y = 1813650001270967709841306491297716908969425248888510985109381881270362755031
 第一次
 {% raw %}
 $$
-gift1 \equiv p^e-q^e \pmod n\newline
+\begin{aligned}
+gift1 \equiv p^e-q^e \pmod n\\
 gift2 \equiv (p+q)^e \pmod n
+\end{aligned}
 $$
 {% endraw %}
 把gift2展开有
