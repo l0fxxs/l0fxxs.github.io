@@ -588,7 +588,7 @@ y = 1813650001270967709841306491297716908969425248888510985109381881270362755031
 第一次
 {% raw %}
 $$
-gift1 \equiv p^e-q^e \pmod n\\
+gift1 \equiv p^e-q^e \pmod n\newline
 gift2 \equiv (p+q)^e \pmod n
 $$
 {% endraw %}
