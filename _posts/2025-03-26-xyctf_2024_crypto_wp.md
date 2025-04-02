@@ -597,8 +597,10 @@ $$
 把gift2展开有
 {% raw %}
 $$
+\begin{gather*}
 gift2 \equiv (p^e+q^e) \pmod n\\
 gift2+gift1 \equiv 2*q^e \pmod n\\
+\end{gather*}
 $$
 {% endraw %}
 与n，gcd求解得到p,q解开第一层得到e=4096
@@ -712,15 +714,22 @@ $$
 椭圆曲线群下的加法加密，这个是蒙哥马利曲线，转化为维尔斯特拉斯曲线
 {% raw %}
 $$
+\begin{gather*}
 蒙哥马利曲线:K*t^2=s^3+Js^2+s\\
 维尔斯特拉斯曲线:y^2=x^3+Ax+B\\
 A=(3-J^2)/(3*K^2)\\
-B=(2*J^3-9*J)/(27*K^3)\\
+B=(2*J^3-9*J)/(27*K^3)
+\end{gather*}
 $$
+{% endraw %}
+
 点的转化
+{% raw %}
 $$
+\begin{gather*}
 x=(3*s+j)/(2*K)\\
-y=y/K
+y=y/K 
+\end{gather*}
 $$
 {% endraw %}
 
