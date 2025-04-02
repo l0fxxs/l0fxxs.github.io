@@ -321,13 +321,14 @@ out=[34, 95, 100, 114, 16, 23, 17, 118, 115, 29, 73, 47, 12, 133, 78, 30, 30, 73
 c=6003642257316152022364486167163125577018867662610595926973616937741281227891381713617380
 '''
 ```
+{% raw %}
 大概是一个lcg生成随机数，a,b,p已知，seed的一些高位泄漏，求seed，最后在运算一些seed与c异或即可
 $seed_{i+1}=a\cdot seed_i+b\ mod\ p$已知三十个seed的高八位
 
 写成
-{% raw %}
+
 $seed_{i+1}^{'}+out_{i+1}=a\cdot seed_i+a\cdot out_{i}+b\ mod\ p$
-{% endraw %}
+
 令$b^{'}_i=b+a\cdot out_i-out_{i+1}$则
 $seed_{i+1}^{'}=a\cdot seed_i+b^{'}_i\ mod\ p$
 
@@ -348,7 +349,7 @@ $seed_{i+1}^{'}=a\cdot seed_i+b^{'}_i\ mod\ p$
 有
 $(k_0,k_1,...,k_{29},1,seed_{0}^{'})\cdot M=(seed^{'}_{1},...,seed^{'}_{29},2^{119},seed^{'}_{0})$
 用LLL算法即可得到
-
+{% endraw %}
 exp
 ```python
 from Crypto.Util.number import *
