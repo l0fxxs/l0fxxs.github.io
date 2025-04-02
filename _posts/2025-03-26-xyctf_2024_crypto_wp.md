@@ -753,3 +753,104 @@ $$
 $$
 {% endraw %}
 然后dlp求解就好
+
+exp
+```python
+from sage.all import * # type: ignore
+from Crypto.Util.number import *
+import gmpy2 
+import itertools
+from hashlib import sha256
+def exchange(s,t,k,j,p):
+    return [(3*s+j)*gmpy2.invert(3*k,p),t*gmpy2.invert(k,p)]
+
+def AMM(delta: int, r: int, q: int, all: bool = False):
+    """
+    使用AMM算法进行有限域开根，即求delta^(1/r)%q下的解
+
+    `Parameter`:
+        delta - 底数
+        r - 根指数
+        q - 模数
+        all - 是否返回所有解
+    
+    `Return`:
+        delta^(1/r)%q下的一个根
+    """
+    
+    if (q - 1) % r != 0:
+        raise Exception("使用AMM算法需要满足e||(q-1)")
+    
+    # step 1
+    Fq = GF(q)
+    delta = Fq(delta)
+    rho = Fq.random_element()
+
+    # step 2
+    while rho ** ((q - 1) // r) == 1:
+        rho = Fq.random_element()
+    
+    # step 3
+    # step 3.1
+    t = 0
+    s = q - 1
+    while s % r == 0:
+        t += 1
+        s //= r
+    # step 3.2
+    k = 1
+    while (k * s + 1) % r != 0:
+        k += 1
+    alpha = (k * s + 1) // r
+    # step 3.3
+    a = rho ** (r ** t - 1 * s)
+    b = delta ** (r * alpha - 1)
+    c = rho ** s
+    h = 1
+    
+    # step 4
+    for i in range(1, t):
+        d = b ** pow(r, t - 1 - i, q - 1)
+        j = 0 if d == 1 else -d.log(a)
+        b *= (c ** r) ** j
+        h *= c ** j
+        c **= r
+
+    # step 5
+    root = int(delta ** alpha * h)
+    if not all:
+        return root
+    
+    # if all is True, generate all roots to return
+    # 2 ^ (q - 1) == 1 (mod q) because of Fermat's little theorem
+    g = pow(2, (q - 1) // r, q)
+    # find all primitive i-th roots of 1
+    ith_roots = [pow(g, i, q) for i in range(r)]
+    return [int(root * ith_root % q) for ith_root in ith_roots]
+
+def phi(x,y,alpha,p):
+    return (((y+alpha*x)%p)*inverse(y-alpha*x,p))%p
+j = 1365855822212045061018261334821659180641576788523935479
+k = 17329427219955161804703200105884322768704934833367341
+p = 1365855822212045061018261334821659180641576788523935481
+
+a=(3-j*j)*gmpy2.invert(3*k*k,p)
+b=(2*j**3-9*j)*gmpy2.invert(27*k*k*k,p)
+
+x_0,y_0=exchange(1060114032187482137663886206406014543797784561116139791,752764811411303365258802649951280929945966659818544966,k,j,p)
+x_1,y_1=exchange(695174082657148306737473938393010922439779304870471540,414626357054958506867453055549756701310099524292082869,k,j,p)
+
+r1=(AMM((-a*gmpy2.invert(3,p))%p,2,p))
+
+r2=(-2*r1)%p
+r=(r2-r1)%p
+
+x_0=(r1+x_0)%p
+x_1=(r1+x_1)%p
+alpha = 1003930426227501665054311651540310392036896175643136673
+
+secret = discrete_log(mod(phi(x_1,y_1,alpha,p),p),mod(phi(x_0,y_0,alpha,p),p))
+flag = b"XYCTF{" + sha256(long_to_bytes(secret)).hexdigest().encode() + b"}"
+print(flag)
+
+```
